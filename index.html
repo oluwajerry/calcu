@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calc</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        box-sizing: border-box;
+      }
+      .bigger{
+        width: 100%;
+        height: 100vh;
+        background: #e3f9ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+      }
+      .display{
+        background: #3a4452;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .bigger form input{
+        border: 0;
+        outline: 0;
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
+        background:transparent;
+        box-shadow:-8px -8px 15px rgba(255, 255, 255, 0.1),5px 5px 15px rgba(0, 0, 0, 0.2);
+        font-size: 20px;
+        color: #fff;
+        cursor: pointer;
+        margin: 10px;
+
+      }
+      form .screen{
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-around;
+        flex-direction: column;
+        padding: 5px;
+        word-wrap: break-word;
+        word-break: break-all;
+      }
+      form .screen input{
+        width: 300px;
+        flex: 1;
+        text-align: right;
+        font-size: 45px;
+        box-shadow: none;
+      }
+     form input.equal{
+      width: 145px;
+     }
+     #actual{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-style: italic;
+     }
+    </style>
+<script>
+    let equal = ()=>{
+     let screen = document.getElementById('tt');
+     let hidden = document.getElementById('actual');
+        try {          
+          
+          hidden.value = screen.value + '=';
+          screen.value = eval(screen.value)
+
+        } catch (error) {
+          screen.value = 'Maths Error'
+        }
+    }
+
+    
+    function clr() {
+     document.getElementById('tt').value = " ";
+     document.getElementById('actual').value = " ";
+    }
+    function rem() {
+      screen = document.getElementById('tt');
+      screen.value = screen.value.toString().slice(0,-1)
+     
+    }
+    
+    function addDecimal() {
+  let screen = document.getElementById('tt');
+  let lastChar = screen.value.slice(-1); // get the last character of the input value
+  if (lastChar === '.') {
+    // a decimal point already exists in the last character or after a number, do nothing
+  } else if(/[%,*,-,+]\d\.$/.test(screen.value)) {
+    screen.value += '.';
+  } 
+  else {
+    // decimal point does not exist in the input value, add it
+    screen.value += '.';
+  }
+}
+
+   
+</script>
+    
+</head>
+<body onload="initialize()">
+         <section>
+            <center>
+                <div class="bigger">
+                        <div class="display">
+                            <form action="">
+                                <div class="screen">
+                                    <input type="text" name="u_screen" id="actual" >
+                                    <input type="text" name="screen" id="tt" placeholder="0">
+                                </div>
+                                <div>
+                                    <input type="button" value="CE" onclick="clr()" >
+                                    <input type="button" value="DE" onclick="rem()">
+                                    <input type="button" value="%" onclick="screen.value +='%'">
+                                    <input type="button" value="/" onclick="screen.value +='/'">
+                                </div>
+                                <div>
+                                    <input type="button" value="7" onclick="screen.value +='7'">
+                                    <input type="button" value="8" onclick="screen.value +='8'">
+                                    <input type="button" value="9" onclick="screen.value +='9'">
+                                    <input type="button" value="+" onclick="screen.value +='+'">
+                                </div>
+                                <div>
+                                    <input type="button" value="4" onclick="screen.value +='4'">
+                                    <input type="button" value="5" onclick="screen.value +='5'">
+                                    <input type="button" value="6" onclick="screen.value +='6'">
+                                    <input type="button" value="*" onclick="screen.value +='*'">
+                                </div>
+                                <div>
+                                    <input type="button" value="1" onclick="screen.value +='1'">
+                                    <input type="button" value="2" onclick="screen.value +='2'">
+                                    <input type="button" value="3" onclick="screen.value +='3'">
+                                    <input type="button" value="-" onclick="screen.value +='-'">
+                                </div>
+                                <div>
+                                    <input type="button" value="." onclick="addDecimal()">
+                                    <input type="button" value="0" onclick="screen.value +='0'">
+                                    <input type="button" value="=" class="equal" onclick="equal()">
+                                </div>
+                            </form> 
+                        </div>
+                </div>
+            </center>
+        </section> 
+
+       
+        <script>
+          function initialize() {
+            let screen = document.getElementById('tt');
+            screen.value = '0';
+          }
+          </script>
+</body>
+</html>
+
+
